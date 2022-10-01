@@ -226,7 +226,6 @@ COPY public.bears (id, bear_uuid, bear_number, bear_name, bear_gender, first_ide
 3	dbf47864-0f3a-44b2-ab00-4555fea20308	131	\N	F	2020	small	blond	\N	blond
 4	6476c962-61f2-4a47-9dc0-ce039479e54c	\N	132's Spring Cub	\N	2021	\N	brown, shaggy	short	\N
 5	bd170c1b-8ad3-402c-955b-b9b59f9c110c	151	Walker	M	2009	large	dark brown	long, tapering	widely spaced, upright
-6	9b1ad2a9-4497-4430-a775-dea80c919453	402	\N	F	\N	large	medium brown	\N	crescent shaped
 7	b8c97622-c17c-41a8-8473-4756f95e92d3	435	Holly	F	2001	medium-large	blond	\N	blond
 8	4e8cbafe-a282-40cf-ad42-98e98cce0af3	480	Otis	M	2001	medium-large	light brown	blocky	floppy right ear
 9	309cde93-f7ae-4633-8778-e03bafa70e52	503	\N	M	\N	\N	dark brown, grizzled	\N	crescent shaped
@@ -237,6 +236,10 @@ COPY public.bears (id, bear_uuid, bear_number, bear_name, bear_gender, first_ide
 14	77cde291-480a-4984-a22e-efa6009fb6a5	719	\N	F	2016	small	blond, shaggy	\N	light blond
 15	5b4d3995-629d-4e64-ac2b-17ef0dfef9dc	909	\N	F	2018	small	blond	\N	large, blond, flopped-over
 16	3c13c24f-3e3f-446d-a252-116adfd9edf5	\N	435's Spring Cub	\N	\N	\N	\N	\N	\N
+23	1c478c15-1a83-46b6-95e6-8d93b4a6f20f	775	Lefty	M	2004	medium-large	brown, uniform	roman nose	short left ear
+24	56ec1ad2-a6fe-4b3e-8818-cd4a8aeb7283	854	Divot	F	2004	medium	blond, golden	\N	\N
+25	0bbda94d-cb72-42e8-9f06-cbf642e770b9	\N	482's Yearling	F	\N	\N	\N	\N	\N
+6	9b1ad2a9-4497-4430-a775-dea80c919453	402	\N	F	2001	large	medium brown	summer goatee	crescent shaped
 \.
 
 
@@ -274,6 +277,17 @@ COPY public.brackets (id, bracket_uuid, round_id, bracket_date, first_bear, seco
 27	64fa8009-5b5f-45fb-9642-046c71974073	13	2020-10-04	5	11
 28	c32d6bad-6412-4d46-bd87-75e186ba47e9	13	2020-10-05	1	2
 29	4bae3f84-8d65-485c-9b57-2e0600de90ce	14	2020-10-06	11	1
+30	986be819-df37-415c-9f23-0c58834eb610	15	2019-10-02	23	8
+31	e762d388-b3c0-4021-a699-adb4bc1b0082	15	2019-10-02	24	6
+32	59f43674-d7c6-4e78-b4a0-436d05361232	15	2019-10-03	5	2
+33	65bff494-79b0-499f-b7b3-cf2354851309	15	2019-10-03	25	15
+34	9e6e06fb-2be9-4799-a5b2-4b04dcd90efd	16	2019-10-04	1	23
+35	0dbdde1f-e571-42d6-b37e-b1088af733f0	16	2019-10-04	11	6
+36	8ce90702-d54f-4600-aa9b-a520f1e1ce1f	16	2019-10-05	9	2
+37	f263c9eb-4c2d-4a16-833b-6a4e429835a9	16	2019-10-05	7	15
+38	617f3d82-c229-49e2-87e6-8326bb8049bb	17	2019-10-06	23	11
+39	becf9ed2-db2f-4cc3-9c46-bf5a962a761d	17	2019-10-07	2	7
+40	98ebeb4f-a067-4049-9a1b-7dc30078f2f7	18	2019-10-08	23	7
 \.
 
 
@@ -304,6 +318,17 @@ COPY public.results (id, bracket_id, winner, winner_votes, runner_up_votes) FROM
 20	27	11	\N	\N
 21	28	1	\N	\N
 22	29	11	\N	\N
+23	30	23	\N	\N
+24	31	6	\N	\N
+25	32	2	\N	\N
+26	33	15	\N	\N
+27	34	23	\N	\N
+28	35	11	\N	\N
+29	36	2	\N	\N
+30	37	7	\N	\N
+31	38	23	\N	\N
+32	39	7	\N	\N
+33	40	7	\N	\N
 \.
 
 
@@ -323,6 +348,10 @@ COPY public.rounds (id, round_uuid, competition_year, round_number, final_round)
 12	8a1dc4c8-3700-4686-a507-ca208ae1486c	2020	2	f
 13	f4eb915a-6708-4984-82a9-7e48971ff426	2020	3	f
 14	82446422-87fb-4fc2-9d2b-3c82e2c8f786	2020	4	t
+15	046b5e07-809e-4cda-ac53-954521db4f2f	2019	1	f
+16	3debb2a6-b4ea-4884-95c7-69b8bb1b4ca2	2019	2	f
+17	4ce98aaa-6258-461f-8faf-907d82e64b45	2019	3	f
+18	c48946f8-d289-47b9-81af-e2378ac4ac7b	2019	4	t
 \.
 
 
@@ -330,28 +359,28 @@ COPY public.rounds (id, round_uuid, competition_year, round_number, final_round)
 -- Name: bears_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bears_id_seq', 16, true);
+SELECT pg_catalog.setval('public.bears_id_seq', 25, true);
 
 
 --
 -- Name: brackets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.brackets_id_seq', 29, true);
+SELECT pg_catalog.setval('public.brackets_id_seq', 40, true);
 
 
 --
 -- Name: results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.results_id_seq', 22, true);
+SELECT pg_catalog.setval('public.results_id_seq', 33, true);
 
 
 --
 -- Name: rounds_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.rounds_id_seq', 14, true);
+SELECT pg_catalog.setval('public.rounds_id_seq', 18, true);
 
 
 --

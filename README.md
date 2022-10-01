@@ -26,11 +26,34 @@ pg_restore -d fat_bear_week -C database.dump
 
 _I'm just noodling around at the moment so I'll come back to users and ownership later_
 
+## Endpoints
+Proposed endpoints:
+#### GET
+- `/bears`, `/bears/{uuid}`, `/bears/{bear_number}` 
+  - all the ID information held about a bear or bears 
+- `/champions` 
+  - all the winners and their victory year(s)
+- `/matchups/{year}`
+  - a simple bear vs. bear list of matchups and dates for the given year
+- `/finalists` 
+  - all bears who have made it to the final round with no. instances
+- `/rivals` 
+  - every bear and their no. 1 rival (the bear that has beat them in a 1-1 the most times)
+- `/info/{year}`
+  - admin stuff, e.g. no. rounds, participants, start-end dates, winner, no. votes cast
+
+#### POST (stretch goal as these will need to be locked down)
+- `/results/{bracket_uuid}`
+  - write a result record for a given bracket uuid. 
+- `/bears`
+  - create/update a new bear 
+
+
 ## TODO:
 - Decide on a framework
   - Fast API (shiny new thing)
   - Flask (I know what I'm doing)
   - Django (would be a useful learning experience)
 - Actually learn some DevOps so I know how this ends
-- Outline some useful endpoints
+- ~~Outline some useful endpoints~~
 
