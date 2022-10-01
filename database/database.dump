@@ -233,6 +233,10 @@ COPY public.bears (id, bear_uuid, bear_number, bear_name, bear_gender, first_ide
 10	b425921f-1fb8-43a2-a638-6c8f14256030	634	Popeye	M	2002	large	brown, grizzled	slightly upturned	light brown
 11	432e402f-659d-47ed-9db5-f403c9759e1f	747	\N	M	2004	very large	reddish brown	blocky	wide-set, peg-like
 12	44669bef-3632-40a3-8d01-c3e1a1ff13d7	812	\N	M	2017	\N	brown, grizzled	\N	crescent shaped
+13	62bcfb3a-e71d-4128-b18d-21d9cbd20c01	856	\N	M	2006	very large	brown, uniform	\N	wide-set, blond
+14	77cde291-480a-4984-a22e-efa6009fb6a5	719	\N	F	2016	small	blond, shaggy	\N	light blond
+15	5b4d3995-629d-4e64-ac2b-17ef0dfef9dc	909	\N	F	2018	small	blond	\N	large, blond, flopped-over
+16	3c13c24f-3e3f-446d-a252-116adfd9edf5	\N	435's Spring Cub	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -259,6 +263,17 @@ COPY public.brackets (id, bracket_uuid, round_id, bracket_date, first_bear, seco
 16	14bc36e3-eb68-4175-a001-fc5b6a5075bc	9	2021-10-03	4	5
 17	e3867a90-0f2a-480a-b387-fed55799e0b9	9	2021-10-04	12	8
 18	54ce1357-d999-4e81-a7a0-a8e2ec852f7e	10	2021-10-05	5	8
+19	6a07c7ca-181c-473f-8de3-339c14f53118	11	2020-09-30	5	13
+20	56c4e609-2573-4b38-b3c2-847bee681707	11	2020-09-30	6	12
+21	aab692c7-88a9-4b40-b73c-59333d4d0b88	11	2020-10-01	1	14
+22	eb67a64e-ff3c-4648-b274-18da70f41465	11	2020-10-01	16	15
+23	5f88c1d4-e64d-45f9-a70a-dd723a0d639c	12	2020-10-02	5	8
+24	5b97eccd-8974-4d16-9653-a81634bd16e0	12	2020-10-02	11	12
+25	0f040b41-79a2-45e8-a570-53ac290a0fe8	12	2020-10-03	1	7
+26	643a507a-9b74-4aad-ac92-c98eb7e6672d	12	2020-10-03	2	15
+27	64fa8009-5b5f-45fb-9642-046c71974073	13	2020-10-04	5	11
+28	c32d6bad-6412-4d46-bd87-75e186ba47e9	13	2020-10-05	1	2
+29	4bae3f84-8d65-485c-9b57-2e0600de90ce	14	2020-10-06	11	1
 \.
 
 
@@ -278,6 +293,17 @@ COPY public.results (id, bracket_id, winner, winner_votes, runner_up_votes) FROM
 9	16	5	31399	22496
 10	17	8	44581	18451
 11	18	8	\N	\N
+12	19	5	\N	\N
+13	20	12	\N	\N
+14	21	1	\N	\N
+15	22	15	\N	\N
+16	23	5	\N	\N
+17	24	11	\N	\N
+18	25	1	\N	\N
+19	26	2	\N	\N
+20	27	11	\N	\N
+21	28	1	\N	\N
+22	29	11	\N	\N
 \.
 
 
@@ -293,6 +319,10 @@ COPY public.rounds (id, round_uuid, competition_year, round_number, final_round)
 8	0c807f3a-5670-4075-bbe6-42689dcd9fbf	2021	2	f
 9	ced165d1-8e8b-418e-a0ca-13845f181d04	2021	3	f
 10	7a31cec4-65df-48df-8bcc-dc46c78ff0c0	2021	4	t
+11	f5688ebf-ba35-4211-b39c-ee99e3a57489	2020	1	f
+12	8a1dc4c8-3700-4686-a507-ca208ae1486c	2020	2	f
+13	f4eb915a-6708-4984-82a9-7e48971ff426	2020	3	f
+14	82446422-87fb-4fc2-9d2b-3c82e2c8f786	2020	4	t
 \.
 
 
@@ -300,28 +330,28 @@ COPY public.rounds (id, round_uuid, competition_year, round_number, final_round)
 -- Name: bears_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bears_id_seq', 12, true);
+SELECT pg_catalog.setval('public.bears_id_seq', 16, true);
 
 
 --
 -- Name: brackets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.brackets_id_seq', 18, true);
+SELECT pg_catalog.setval('public.brackets_id_seq', 29, true);
 
 
 --
 -- Name: results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.results_id_seq', 11, true);
+SELECT pg_catalog.setval('public.results_id_seq', 22, true);
 
 
 --
 -- Name: rounds_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.rounds_id_seq', 10, true);
+SELECT pg_catalog.setval('public.rounds_id_seq', 14, true);
 
 
 --
