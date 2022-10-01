@@ -1,0 +1,426 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.5
+-- Dumped by pg_dump version 14.5 (Homebrew)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: bears; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bears (
+    id integer NOT NULL,
+    bear_uuid uuid DEFAULT public.uuid_generate_v4(),
+    bear_number integer,
+    bear_name text,
+    bear_gender text,
+    first_identified integer,
+    bear_size text,
+    fur_description text,
+    muzzle_description text,
+    ear_description text
+);
+
+
+ALTER TABLE public.bears OWNER TO postgres;
+
+--
+-- Name: bears_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.bears_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bears_id_seq OWNER TO postgres;
+
+--
+-- Name: bears_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.bears_id_seq OWNED BY public.bears.id;
+
+
+--
+-- Name: brackets; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.brackets (
+    id integer NOT NULL,
+    bracket_uuid uuid DEFAULT public.uuid_generate_v4(),
+    round_id integer,
+    bracket_date date NOT NULL,
+    first_bear integer,
+    second_bear integer
+);
+
+
+ALTER TABLE public.brackets OWNER TO postgres;
+
+--
+-- Name: brackets_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.brackets_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.brackets_id_seq OWNER TO postgres;
+
+--
+-- Name: brackets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.brackets_id_seq OWNED BY public.brackets.id;
+
+
+--
+-- Name: results; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.results (
+    id integer NOT NULL,
+    bracket_id integer NOT NULL,
+    winner integer NOT NULL,
+    winner_votes integer,
+    runner_up_votes integer
+);
+
+
+ALTER TABLE public.results OWNER TO postgres;
+
+--
+-- Name: results_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.results_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.results_id_seq OWNER TO postgres;
+
+--
+-- Name: results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.results_id_seq OWNED BY public.results.id;
+
+
+--
+-- Name: rounds; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.rounds (
+    id integer NOT NULL,
+    round_uuid uuid DEFAULT public.uuid_generate_v4(),
+    competition_year integer NOT NULL,
+    round_number integer,
+    final_round boolean NOT NULL
+);
+
+
+ALTER TABLE public.rounds OWNER TO postgres;
+
+--
+-- Name: rounds_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.rounds_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.rounds_id_seq OWNER TO postgres;
+
+--
+-- Name: rounds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.rounds_id_seq OWNED BY public.rounds.id;
+
+
+--
+-- Name: bears id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bears ALTER COLUMN id SET DEFAULT nextval('public.bears_id_seq'::regclass);
+
+
+--
+-- Name: brackets id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.brackets ALTER COLUMN id SET DEFAULT nextval('public.brackets_id_seq'::regclass);
+
+
+--
+-- Name: results id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.results ALTER COLUMN id SET DEFAULT nextval('public.results_id_seq'::regclass);
+
+
+--
+-- Name: rounds id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rounds ALTER COLUMN id SET DEFAULT nextval('public.rounds_id_seq'::regclass);
+
+
+--
+-- Data for Name: bears; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.bears (id, bear_uuid, bear_number, bear_name, bear_gender, first_identified, bear_size, fur_description, muzzle_description, ear_description) FROM stdin;
+1	92f50d48-18ae-4669-aa1e-675fa3e91253	32	Chunk	M	2007	large	dark brown, two-toned	distinctive scar	\N
+2	d0883672-0aac-4dd4-ba4b-ee8c189cdcd9	128	Grazer	F	2005	large	light brown, grizzled	long, straight	conspicuously large, blond
+3	dbf47864-0f3a-44b2-ab00-4555fea20308	131	\N	F	2020	small	blond	\N	blond
+4	6476c962-61f2-4a47-9dc0-ce039479e54c	\N	132's Spring Cub	\N	2021	\N	brown, shaggy	short	\N
+5	bd170c1b-8ad3-402c-955b-b9b59f9c110c	151	Walker	M	2009	large	dark brown	long, tapering	widely spaced, upright
+6	9b1ad2a9-4497-4430-a775-dea80c919453	402	\N	F	\N	large	medium brown	\N	crescent shaped
+7	b8c97622-c17c-41a8-8473-4756f95e92d3	435	Holly	F	2001	medium-large	blond	\N	blond
+8	4e8cbafe-a282-40cf-ad42-98e98cce0af3	480	Otis	M	2001	medium-large	light brown	blocky	floppy right ear
+9	309cde93-f7ae-4633-8778-e03bafa70e52	503	\N	M	\N	\N	dark brown, grizzled	\N	crescent shaped
+10	b425921f-1fb8-43a2-a638-6c8f14256030	634	Popeye	M	2002	large	brown, grizzled	slightly upturned	light brown
+11	432e402f-659d-47ed-9db5-f403c9759e1f	747	\N	M	2004	very large	reddish brown	blocky	wide-set, peg-like
+12	44669bef-3632-40a3-8d01-c3e1a1ff13d7	812	\N	M	2017	\N	brown, grizzled	\N	crescent shaped
+\.
+
+
+--
+-- Data for Name: brackets; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.brackets (id, bracket_uuid, round_id, bracket_date, first_bear, second_bear) FROM stdin;
+1	6f7d9424-a92a-45ac-9f9b-4035eff5efca	4	2022-10-05	\N	\N
+2	9c6644e3-a6e4-4607-a1a5-94c358a9ea2e	4	2022-10-05	\N	\N
+3	555876af-35c4-4dbf-9e62-7d7997bad467	4	2022-10-06	\N	\N
+4	3870a3ff-d97d-4d36-bef9-ced826dc1cf9	4	2022-10-06	\N	\N
+5	9ebb0d1e-2bcb-4f63-9a87-f0803208adfe	5	2022-10-07	\N	\N
+6	8fb08df9-2542-4c46-a71c-8d2446d2165c	5	2022-10-08	\N	\N
+7	cb914d76-8d1a-4cd0-ad5f-97f97a62d168	6	2022-10-11	\N	\N
+8	89764aa8-2f86-43ef-9011-a3e58738e7bf	7	2021-09-29	7	2
+9	bd57034c-f9d0-41ab-81e8-096a4a102902	7	2021-09-29	10	5
+10	ec18d280-3b0f-4e62-adc1-c49376b83b71	7	2021-09-30	12	3
+11	86b0ddd1-8eb2-451b-9106-1df18a454aaf	7	2021-09-30	6	8
+12	46ec071f-5623-443e-a0fe-aa1a949da3ed	8	2021-10-01	2	4
+13	f2b898d5-925e-4d82-b374-20667900a559	8	2021-10-01	1	5
+14	ffeaedf3-e685-4844-9e30-569478903d57	8	2021-10-02	12	9
+15	ddbca82e-03be-4444-abb0-1341b821947d	8	2021-10-02	11	8
+16	14bc36e3-eb68-4175-a001-fc5b6a5075bc	9	2021-10-03	4	5
+17	e3867a90-0f2a-480a-b387-fed55799e0b9	9	2021-10-04	12	8
+18	54ce1357-d999-4e81-a7a0-a8e2ec852f7e	10	2021-10-05	5	8
+\.
+
+
+--
+-- Data for Name: results; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.results (id, bracket_id, winner, winner_votes, runner_up_votes) FROM stdin;
+1	8	2	52145	25420
+2	9	5	64451	11820
+3	10	12	68092	17706
+4	11	8	71227	14026
+5	12	4	40968	32251
+6	13	5	60621	11038
+7	14	12	31728	22447
+8	15	8	34000	22532
+9	16	5	31399	22496
+10	17	8	44581	18451
+11	18	8	\N	\N
+\.
+
+
+--
+-- Data for Name: rounds; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.rounds (id, round_uuid, competition_year, round_number, final_round) FROM stdin;
+4	7908761d-6067-4221-9e7d-54f0186788ae	2022	1	f
+5	27f9803b-ddc0-44ed-8221-5c06f43ecf4e	2022	2	f
+6	57d04ccb-a928-464e-88f5-56591995f765	2022	3	t
+7	5b43f16d-5642-49fa-acc8-16b1b3bd2029	2021	1	f
+8	0c807f3a-5670-4075-bbe6-42689dcd9fbf	2021	2	f
+9	ced165d1-8e8b-418e-a0ca-13845f181d04	2021	3	f
+10	7a31cec4-65df-48df-8bcc-dc46c78ff0c0	2021	4	t
+\.
+
+
+--
+-- Name: bears_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.bears_id_seq', 12, true);
+
+
+--
+-- Name: brackets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.brackets_id_seq', 18, true);
+
+
+--
+-- Name: results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.results_id_seq', 11, true);
+
+
+--
+-- Name: rounds_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.rounds_id_seq', 10, true);
+
+
+--
+-- Name: bears bears_bear_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bears
+    ADD CONSTRAINT bears_bear_name_key UNIQUE (bear_name);
+
+
+--
+-- Name: bears bears_bear_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bears
+    ADD CONSTRAINT bears_bear_number_key UNIQUE (bear_number);
+
+
+--
+-- Name: bears bears_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bears
+    ADD CONSTRAINT bears_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: brackets brackets_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.brackets
+    ADD CONSTRAINT brackets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: results results_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.results
+    ADD CONSTRAINT results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rounds rounds_competition_year_round_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rounds
+    ADD CONSTRAINT rounds_competition_year_round_number_key UNIQUE (competition_year, round_number);
+
+
+--
+-- Name: rounds rounds_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rounds
+    ADD CONSTRAINT rounds_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: brackets brackets_first_bear_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.brackets
+    ADD CONSTRAINT brackets_first_bear_fkey FOREIGN KEY (first_bear) REFERENCES public.bears(id);
+
+
+--
+-- Name: brackets brackets_round_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.brackets
+    ADD CONSTRAINT brackets_round_id_fkey FOREIGN KEY (round_id) REFERENCES public.rounds(id);
+
+
+--
+-- Name: brackets brackets_second_bear_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.brackets
+    ADD CONSTRAINT brackets_second_bear_fkey FOREIGN KEY (second_bear) REFERENCES public.bears(id);
+
+
+--
+-- Name: results results_bracket_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.results
+    ADD CONSTRAINT results_bracket_id_fkey FOREIGN KEY (bracket_id) REFERENCES public.brackets(id);
+
+
+--
+-- Name: results results_winner_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.results
+    ADD CONSTRAINT results_winner_fkey FOREIGN KEY (winner) REFERENCES public.bears(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
