@@ -228,7 +228,6 @@ COPY public.bears (id, bear_uuid, bear_number, bear_name, bear_gender, first_ide
 5	bd170c1b-8ad3-402c-955b-b9b59f9c110c	151	Walker	M	2009	large	dark brown	long, tapering	widely spaced, upright
 7	b8c97622-c17c-41a8-8473-4756f95e92d3	435	Holly	F	2001	medium-large	blond	\N	blond
 8	4e8cbafe-a282-40cf-ad42-98e98cce0af3	480	Otis	M	2001	medium-large	light brown	blocky	floppy right ear
-9	309cde93-f7ae-4633-8778-e03bafa70e52	503	\N	M	\N	\N	dark brown, grizzled	\N	crescent shaped
 10	b425921f-1fb8-43a2-a638-6c8f14256030	634	Popeye	M	2002	large	brown, grizzled	slightly upturned	light brown
 11	432e402f-659d-47ed-9db5-f403c9759e1f	747	\N	M	2004	very large	reddish brown	blocky	wide-set, peg-like
 12	44669bef-3632-40a3-8d01-c3e1a1ff13d7	812	\N	M	2017	\N	brown, grizzled	\N	crescent shaped
@@ -240,6 +239,10 @@ COPY public.bears (id, bear_uuid, bear_number, bear_name, bear_gender, first_ide
 24	56ec1ad2-a6fe-4b3e-8818-cd4a8aeb7283	854	Divot	F	2004	medium	blond, golden	\N	\N
 25	0bbda94d-cb72-42e8-9f06-cbf642e770b9	\N	482's Yearling	F	\N	\N	\N	\N	\N
 6	9b1ad2a9-4497-4430-a775-dea80c919453	402	\N	F	2001	large	medium brown	summer goatee	crescent shaped
+26	becab453-7258-4336-9df3-5108e46ba0f5	409	Beadnose	F	1999	medium-large	medium brown	long, straight	wide-set, blond
+27	e4c1aa9f-ec02-46a7-b1bf-278c2e9a460e	\N	435's Cubs	\N	\N	\N	\N	\N	\N
+9	309cde93-f7ae-4633-8778-e03bafa70e52	503	Cubadult	M	2014	medium-small	dark brown, grizzled	\N	crescent shaped
+28	559cd6f6-6223-4f22-9393-93fbb3b68fca	410	Four-Ton	F	1989	large	medium brown, grizzled	prominent	\N
 \.
 
 
@@ -288,6 +291,28 @@ COPY public.brackets (id, bracket_uuid, round_id, bracket_date, first_bear, seco
 38	617f3d82-c229-49e2-87e6-8326bb8049bb	17	2019-10-06	23	11
 39	becf9ed2-db2f-4cc3-9c46-bf5a962a761d	17	2019-10-07	2	7
 40	98ebeb4f-a067-4049-9a1b-7dc30078f2f7	18	2019-10-08	23	7
+41	c7d5f50b-9695-4f8a-966a-335b31da1bd7	19	2018-10-03	5	26
+42	f307b17f-e5c2-43e4-aa2a-1749cd344031	19	2018-10-03	24	9
+43	b416576d-7b03-4783-b22b-9068d4bac401	19	2018-10-04	12	1
+44	c53d4ed9-05e2-4156-9a24-05b02a19226e	19	2018-10-04	14	27
+45	f44de3b5-1188-4ca2-8875-5007f924fd84	20	2018-10-05	8	26
+46	3b862758-f0ef-4989-97e8-9b4fe125b533	20	2018-10-05	7	24
+47	7eb1e5c3-c0d8-46ed-82fa-6338bb7f768c	20	2018-10-06	13	1
+48	1a56fffc-5e91-49bf-b081-cbb0fc88b467	20	2018-10-06	11	14
+49	d1dfabdd-cfa2-4d58-a89a-a9e4fce51172	21	2018-10-07	26	24
+50	d9ce2479-dd0d-461c-9a35-d808579ec0d3	21	2018-10-08	1	11
+51	1d856c5f-4278-4a44-b46a-72d5e3ba30e9	22	2018-10-09	26	11
+52	84382c84-c49e-4f8b-80cb-4ea706f8e656	23	2017-10-04	24	7
+53	006af2aa-91c7-4343-85c7-9d4a9ce4e573	23	2017-10-04	2	26
+54	2b896294-2590-4307-99f9-55982aeff4ec	23	2017-10-05	14	9
+55	376bcca1-2f9f-435d-9aec-30aedc619f62	23	2017-10-05	13	5
+56	22198071-4c62-4080-8ded-db5633d3ef5e	24	2017-10-06	11	7
+57	db5d06cc-85c8-4892-b9bd-106de3cf4a46	24	2017-10-06	28	26
+58	2a8f65d9-9ddd-4fbd-94a9-a49c87b32cd6	24	2017-10-07	1	9
+59	85e2b04b-f140-467e-a1c1-1ff0b5f0b6a1	24	2017-10-07	8	5
+60	75ff3a98-1fd3-4a90-9f05-28b8671c5144	25	2017-10-08	11	28
+61	7f703699-4d58-42ce-9242-01396994142b	25	2017-10-08	1	8
+62	4d7ec9d2-c1e3-4041-9d6e-c2466383da4f	26	2017-10-09	11	8
 \.
 
 
@@ -329,6 +354,28 @@ COPY public.results (id, bracket_id, winner, winner_votes, runner_up_votes) FROM
 31	38	23	\N	\N
 32	39	7	\N	\N
 33	40	7	\N	\N
+34	41	26	\N	\N
+35	42	24	\N	\N
+36	43	1	\N	\N
+37	44	14	\N	\N
+38	45	26	\N	\N
+39	46	24	\N	\N
+40	47	1	\N	\N
+41	48	11	\N	\N
+42	49	26	\N	\N
+43	50	11	\N	\N
+44	51	26	\N	\N
+45	52	7	\N	\N
+46	53	26	\N	\N
+47	54	9	\N	\N
+48	55	5	\N	\N
+49	56	11	\N	\N
+50	57	28	\N	\N
+51	58	1	\N	\N
+52	59	8	\N	\N
+53	60	11	\N	\N
+54	61	8	\N	\N
+55	62	8	\N	\N
 \.
 
 
@@ -352,6 +399,14 @@ COPY public.rounds (id, round_uuid, competition_year, round_number, final_round)
 16	3debb2a6-b4ea-4884-95c7-69b8bb1b4ca2	2019	2	f
 17	4ce98aaa-6258-461f-8faf-907d82e64b45	2019	3	f
 18	c48946f8-d289-47b9-81af-e2378ac4ac7b	2019	4	t
+19	2e1e5e15-ed93-43e4-b464-5662cf51c3de	2018	1	f
+20	027a5354-06da-4e93-9c2d-1a88dda53d7b	2018	2	f
+21	cf882029-e36a-414c-937d-4ffa62f5a1cd	2018	3	f
+22	1e074930-c29e-4ee4-9a44-20e385177433	2018	4	t
+23	033264f9-acf7-431f-8f63-e950c3787558	2017	1	f
+24	3cab95cd-04f8-48c2-a3cf-8ab9a194af55	2017	2	f
+25	ec7cd1fb-e77c-41da-8c36-efe189134327	2017	3	f
+26	e2fb8f4b-c111-4617-a6c2-7ccfa837533e	2017	4	t
 \.
 
 
@@ -359,28 +414,28 @@ COPY public.rounds (id, round_uuid, competition_year, round_number, final_round)
 -- Name: bears_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bears_id_seq', 25, true);
+SELECT pg_catalog.setval('public.bears_id_seq', 28, true);
 
 
 --
 -- Name: brackets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.brackets_id_seq', 40, true);
+SELECT pg_catalog.setval('public.brackets_id_seq', 62, true);
 
 
 --
 -- Name: results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.results_id_seq', 33, true);
+SELECT pg_catalog.setval('public.results_id_seq', 55, true);
 
 
 --
 -- Name: rounds_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.rounds_id_seq', 18, true);
+SELECT pg_catalog.setval('public.rounds_id_seq', 26, true);
 
 
 --
