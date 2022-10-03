@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Bear, Result
+from .models import Bear, Bracket, Result
 
 class BearSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,3 +22,4 @@ class ResultSerializer(serializers.Serializer):
     class Meta:
         model = Result
         fields = ["winner", "bracket_id", "bracket_date"]
+
