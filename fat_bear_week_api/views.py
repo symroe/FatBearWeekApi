@@ -18,8 +18,10 @@ class ChampionsView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class FinalistsView(APIView):
-    def get(self, request, *args, **kwargs) :
-        bears = Bear.object.all()
-        results = Bracket.objects.filter(bracket__round__final_round=True).all().order_by("-bracket__bracket_date")
-        serializer = BearSerializer(results, many=True)
+    def get(self, request, *args, **kwargs):
+        bear_1_query = Bracket.objects.filter(round__final_round=True).values('first_bear').all()
+        bear_2_query = Bracket.objects.filter(round__final_round=True).values('second_bear').all()
+        subquery = bear_1_query.union(bear_2_query)
+        bears = Bear.objects.filter(id__in=subquery).all()
+        serializer = BearSerializer(bears, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
