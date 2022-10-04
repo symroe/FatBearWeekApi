@@ -1,0 +1,32 @@
+id,bear_uuid,bear_number,bear_name,bear_gender,first_identified,bear_size,fur_description,muzzle_description,ear_description
+1,92f50d48-18ae-4669-aa1e-675fa3e91253,32,Chunk,M,2007,large,"dark brown, two-toned",distinctive scar,
+2,d0883672-0aac-4dd4-ba4b-ee8c189cdcd9,128,Grazer,F,2005,large,"light brown, grizzled","long, straight","conspicuously large, blond"
+3,dbf47864-0f3a-44b2-ab00-4555fea20308,131,,F,2020,small,blond,,blond
+4,6476c962-61f2-4a47-9dc0-ce039479e54c,,132's Spring Cub,,2021,,"brown, shaggy",short,
+5,bd170c1b-8ad3-402c-955b-b9b59f9c110c,151,Walker,M,2009,large,dark brown,"long, tapering","widely spaced, upright"
+7,b8c97622-c17c-41a8-8473-4756f95e92d3,435,Holly,F,2001,medium-large,blond,,blond
+8,4e8cbafe-a282-40cf-ad42-98e98cce0af3,480,Otis,M,2001,medium-large,light brown,blocky,floppy right ear
+10,b425921f-1fb8-43a2-a638-6c8f14256030,634,Popeye,M,2002,large,"brown, grizzled",slightly upturned,light brown
+11,432e402f-659d-47ed-9db5-f403c9759e1f,747,,M,2004,very large,reddish brown,blocky,"wide-set, peg-like"
+12,44669bef-3632-40a3-8d01-c3e1a1ff13d7,812,,M,2017,,"brown, grizzled",,crescent shaped
+13,62bcfb3a-e71d-4128-b18d-21d9cbd20c01,856,,M,2006,very large,"brown, uniform",,"wide-set, blond"
+14,77cde291-480a-4984-a22e-efa6009fb6a5,719,,F,2016,small,"blond, shaggy",,light blond
+15,5b4d3995-629d-4e64-ac2b-17ef0dfef9dc,909,,F,2018,small,blond,,"large, blond, flopped-over"
+16,3c13c24f-3e3f-446d-a252-116adfd9edf5,,435's Spring Cub,,,,,,
+23,1c478c15-1a83-46b6-95e6-8d93b4a6f20f,775,Lefty,M,2004,medium-large,"brown, uniform",roman nose,short left ear
+24,56ec1ad2-a6fe-4b3e-8818-cd4a8aeb7283,854,Divot,F,2004,medium,"blond, golden",,
+25,0bbda94d-cb72-42e8-9f06-cbf642e770b9,,482's Yearling,F,,,,,
+6,9b1ad2a9-4497-4430-a775-dea80c919453,402,,F,2001,large,medium brown,summer goatee,crescent shaped
+26,becab453-7258-4336-9df3-5108e46ba0f5,409,Beadnose,F,1999,medium-large,medium brown,"long, straight","wide-set, blond"
+27,e4c1aa9f-ec02-46a7-b1bf-278c2e9a460e,,435's Cubs,,,,,,
+9,309cde93-f7ae-4633-8778-e03bafa70e52,503,Cubadult,M,2014,medium-small,"dark brown, grizzled",,crescent shaped
+28,559cd6f6-6223-4f22-9393-93fbb3b68fca,410,Four-Ton,F,1989,large,"medium brown, grizzled",prominent,
+29,d16c5807-bbd9-4e4a-83f1-59977748ca13,89,Backpack,M,2006,medium,dark blond,straight,
+30,033e4f64-6e0e-40c3-b137-3e2f09c11131,,273's Cub,,,,,,
+31,8e7a3be5-a529-4450-af11-1135bb87d4b4,,128's Cub,,,,,,
+32,2cf097a5-f603-426a-9523-5821a38eafc8,171,,F,2009,medium,dark blond,,triangular
+33,a5714a1d-21df-4704-93d0-2fb6f20fad86,284,Electra,F,2011,medium,"dark blond, uniform",tapered,
+34,a336c0b5-f40f-420e-bd55-a71fb2756bae,500,Indy,F,2014,small,very blond,,"large, upright"
+35,cdeaf1a0-b5e7-4b8a-a261-3cc27cf512b4,83,Wayne Brother,M,2008,large,medium brown,,wide-set
+36,a2f9d2f9-5941-4489-99dd-e888ba1c4967,814,Lurch,M,2005,medium-large,"dark brown, uniform",long,missing right ear
+37,6c40f941-a7ca-4f2e-a179-0975a5bae2c7,,435 Holly's Cub,,,,,,
