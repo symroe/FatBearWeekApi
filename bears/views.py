@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Bear, Result, BracketContestant
-from .serializers import BearSerializer, ContestantSerializer
+from bears.models import Bear, Result, BracketContestant
+from bears.serializers import BearSerializer, ContestantSerializer
 
 
 class BearsView(APIView):

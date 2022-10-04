@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import BearsView, ChampionsView, FinalistsView
+from bears.views import BearsView, ChampionsView, FinalistsView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
