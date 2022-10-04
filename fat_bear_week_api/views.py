@@ -27,7 +27,7 @@ class ChampionsView(APIView):
         )
         contestants = BracketContestant.objects.filter(
             bear_id__in=winner_bear_ids
-        ).all()
+        ).all().distinct("bear_id")
         serializer = ContestantSerializer(contestants, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
