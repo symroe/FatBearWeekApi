@@ -13,10 +13,21 @@ class Bear(models.Model):
     ear_description = models.TextField(blank=True, null=True)
 
 
+class BracketContestantQuerySet(models.QuerySet):
+    def champions(self):
+        # TODO: make this query actually do what it should
+        return self.filter(bracket__round__final_round=True)
+
+    def finalists(self):
+        # TODO: make this query actually do what it should
+        return self.filter(bracket__round__final_round=True)
+
 class BracketContestant(models.Model):
     bracket_contestant_uuid = models.UUIDField(blank=True, null=True)
     bracket = models.ForeignKey("Bracket", models.DO_NOTHING, blank=True, null=True)
     bear = models.ForeignKey(Bear, models.DO_NOTHING, blank=True, null=True)
+
+    objects = BracketContestantQuerySet.as_manager()
 
     class Meta:
         unique_together = (("bracket", "bear"),)
