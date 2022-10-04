@@ -2,3 +2,4 @@ django==4.1.1
 djangorestframework==3.14.0
 django-filter==22.1
 markdown==3.4.1
+black==22.8.0
