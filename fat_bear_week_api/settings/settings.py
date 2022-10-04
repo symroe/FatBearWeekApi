@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "fat_bear_week_api",
+    "bears",
+    "api",
 ]
 
 MIDDLEWARE = [
