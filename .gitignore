@@ -2,3 +2,4 @@ env/
 .idea/
 __pycache__/
 database/seed_data/
+

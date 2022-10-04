@@ -247,6 +247,42 @@ ALTER SEQUENCE public.bears_id_seq OWNED BY public.bears.id;
 
 
 --
+-- Name: bracket_contestants; Type: TABLE; Schema: public; Owner: rebeka
+--
+
+CREATE TABLE public.bracket_contestants (
+    id integer NOT NULL,
+    bracket_contestant_uuid uuid DEFAULT public.uuid_generate_v4(),
+    bracket_id integer,
+    bear_id integer
+);
+
+
+ALTER TABLE public.bracket_contestants OWNER TO rebeka;
+
+--
+-- Name: bracket_contestants_id_seq; Type: SEQUENCE; Schema: public; Owner: rebeka
+--
+
+CREATE SEQUENCE public.bracket_contestants_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bracket_contestants_id_seq OWNER TO rebeka;
+
+--
+-- Name: bracket_contestants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rebeka
+--
+
+ALTER SEQUENCE public.bracket_contestants_id_seq OWNED BY public.bracket_contestants.id;
+
+
+--
 -- Name: brackets; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -254,9 +290,7 @@ CREATE TABLE public.brackets (
     id integer NOT NULL,
     bracket_uuid uuid DEFAULT public.uuid_generate_v4(),
     round_id integer,
-    bracket_date date NOT NULL,
-    first_bear integer,
-    second_bear integer
+    bracket_date date NOT NULL
 );
 
 
@@ -468,6 +502,13 @@ ALTER TABLE ONLY public.bears ALTER COLUMN id SET DEFAULT nextval('public.bears_
 
 
 --
+-- Name: bracket_contestants id; Type: DEFAULT; Schema: public; Owner: rebeka
+--
+
+ALTER TABLE ONLY public.bracket_contestants ALTER COLUMN id SET DEFAULT nextval('public.bracket_contestants_id_seq'::regclass);
+
+
+--
 -- Name: brackets id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -601,105 +642,315 @@ COPY public.bears (id, bear_uuid, bear_number, bear_name, bear_gender, first_ide
 
 
 --
+-- Data for Name: bracket_contestants; Type: TABLE DATA; Schema: public; Owner: rebeka
+--
+
+COPY public.bracket_contestants (id, bracket_contestant_uuid, bracket_id, bear_id) FROM stdin;
+1	dde7a48e-e24e-456e-bd25-50f801c1a4e0	1	\N
+2	3768fa43-d436-4018-9838-11bd308bc011	2	\N
+3	a8283d14-156b-4070-b094-45688c6f2268	3	\N
+4	64b4710b-1b07-48d0-aee6-fba0e782c679	4	\N
+5	9686e55f-7e34-4b64-88a5-07ecc50b07c1	5	\N
+6	0fba2ada-c356-40c1-b94a-62081f8d46a3	6	\N
+7	53f1d64a-6f30-4dc0-95c1-ff0712a22f4b	8	7
+8	6b0eb4d1-e148-445f-8d93-69fcf688d8c2	9	10
+9	a31d018e-d3c6-45ce-acd8-44279cc0483a	10	12
+10	f7b537f6-b2c9-40d7-aafb-6cb08e6c27fd	11	6
+11	9ae4a91f-0ec6-4040-8934-e25f9e65dfcc	12	2
+12	f176cd6e-83ee-4316-8e6b-93d9d4d2ae6a	13	1
+13	41418df9-2f26-4b7b-a86d-c0da124eba4a	14	12
+14	04d0d711-e8c9-4817-bb47-24fde713de47	15	11
+15	2ada336f-1d18-40a9-a338-e096437f0b5b	16	4
+16	2e629e6f-3ae6-435e-a797-e24062b6c7a2	17	12
+17	2ec6bab5-0755-48d9-8720-5c5cae003885	18	5
+18	f247fdf0-0ca3-47fc-a391-d9f57f9fee48	19	5
+19	62cce5ec-1deb-429b-b1f7-38900afb7f51	20	6
+20	1ee12cad-7a90-4aac-a376-34ccf8e288fc	21	1
+21	bd41d528-a1a4-4b65-84d9-afb77ad9beb3	22	16
+22	c46d741d-e6c4-4779-b09b-8acdbea83b69	23	5
+23	280f8020-f19a-40ce-a6c3-6d138746d0ba	24	11
+24	0620f490-1fbc-483a-83d9-a4ec9454b89b	25	1
+25	8b58241b-a2c0-4775-99f4-a9bdeadf84af	26	2
+26	31d1b9ef-eac7-4b28-ba86-d3f3c41ba30b	27	5
+27	7bd7aeca-e7dd-4f59-aff7-22326e0a5cd8	28	1
+28	b652093b-4e09-4b97-9208-9b27ec7786c3	96	\N
+29	3d531138-84b5-4dca-84dc-26773c2feb9d	29	11
+30	12600db4-959f-4203-a308-3106f0d64d52	30	23
+31	72eb57de-5c50-450a-b668-e0039f57c311	31	24
+32	07b5f7c5-09b0-4305-abd3-7a74b794b5a2	32	5
+33	9e1745f5-9fa3-432e-8ea7-a1a6286e9516	33	25
+34	12ccffc6-10d8-4c74-a6ed-e2c0cb60a92e	34	1
+35	196b65b6-cd7d-4c17-a740-d4e2e713ccc9	35	11
+36	5ee7722d-9c38-4e7a-b00a-6906c3ebc783	36	9
+37	2714aa9b-f492-46e1-8fb8-f5b18708c6ae	37	7
+38	db3d7478-f518-4079-a054-500fb0a5fe18	38	23
+39	4d9b4c14-7e8a-4cc6-8aaa-4c1d12341a3c	39	2
+40	62bb3f5c-45ff-4c1d-be20-b41b9cd1ffdb	40	23
+41	70260758-00d7-4167-8466-63cfef38958d	41	5
+42	518773e4-25e6-4671-8df1-a399fbfdfae2	42	24
+43	518e216c-1b24-4ecc-b1bf-7f18c5668014	43	12
+44	2d51d9ec-a66f-4cca-8ea8-a360557842e0	44	14
+45	87225a87-3c01-447c-8c23-895256c1d104	45	8
+46	6d85f46b-5af2-47fa-b635-dea55121eb81	46	7
+47	d29727e0-4b68-4739-bd56-5a52558b91e4	47	13
+48	aeab0ac8-3688-49ac-9ea4-de64bf6b4ee4	48	11
+49	a1dcd0e7-bc74-4f08-a112-be68689917fc	97	\N
+50	10c4fe60-3f6b-45e1-a83d-1128b8107b47	98	\N
+51	84ec099b-616d-4e12-9260-cc99efbf43bf	99	\N
+52	79be525f-8468-4c3d-8bc5-f2e844eb5d8f	49	26
+53	afac7c81-2ce0-4253-b4ec-e06b1f5a3cd6	50	1
+54	8dd7279e-e717-4a54-be1c-53feac376381	51	26
+55	1d70f91e-4a65-4831-9dad-a94816c3bb22	52	24
+56	f3dea006-f21e-406d-b8f7-d86540f9991a	53	2
+57	91bbfa5c-702f-4c69-bcb5-5530f3544ba2	54	14
+58	9ad79c42-d96e-4fad-9e2d-ec36bf037993	55	13
+59	e1cdf397-bf2d-4ab6-840b-a9dfdb630bdc	56	11
+60	6c8508ff-78bb-4c81-99d4-f023c5ddf517	57	28
+61	8b299415-9840-4bcb-93b7-bbfcf43c8a0b	58	1
+62	a4ca774c-b1c0-460b-999d-bce155a5a535	59	8
+63	6fe5eaeb-a5a5-4aad-a73d-c7421fd2d5c4	60	11
+64	5fb73f0b-41ce-460d-a978-874602ca56d4	61	1
+65	3c14a843-6da4-450e-a7cf-b08c4078462c	62	11
+66	04457739-9a09-4b0f-89d6-73eae6b133c1	63	5
+67	d39af433-2c73-4502-bfa5-1d699f425f39	64	6
+68	44a12aee-41a7-4bcc-b84c-c182d9d24a98	65	30
+69	6e1ae1f3-47ef-48a2-a937-daf2f068e30c	66	1
+70	002f65e9-9957-4569-aac2-45e522183624	67	8
+71	734b8ffe-7e85-43e2-9348-2bb2416efe02	68	28
+72	2a3b327b-df1e-4caf-bf1f-81fdada11228	69	7
+73	e5c979a0-3682-4f2c-a4f6-4d45096ef974	70	11
+74	9c23e20b-0094-4320-b544-f242b09e451c	71	8
+75	487ad578-8e09-434f-8121-fa8621b48556	72	7
+76	afbb9082-930c-44d0-9810-22b8f56b0764	73	7
+77	b15d4152-312e-4848-9288-0c6bc9e6c4f3	74	7
+78	370bf97c-e029-4d7f-8eb2-d343f903b976	75	1
+79	639ee9b7-ac5b-4abe-9151-cced5df02324	76	24
+80	d3ca46d0-4fa8-4b25-90ad-5424e24f60f4	77	2
+81	2cb2c181-6df9-4fbc-b9b5-49430439ca00	78	26
+82	8fcdac4f-d7fc-488a-9e17-206832912f64	79	11
+83	5c72eb5a-eceb-4840-9e0e-517cff12fdf9	80	28
+84	d08e100d-ca0e-43a7-afc3-28954ff323f9	81	8
+85	33ad12d5-150c-4008-9bf1-e4652cee9749	82	26
+86	91394313-f1ed-4ade-b9e2-57d512f15ba8	83	28
+87	d7318bc8-bd77-4369-a5a8-9fd051d63bcb	84	26
+88	02190523-1e73-4783-b616-e56906549b5e	85	33
+89	16c13227-5d7d-4059-90ef-b11c22c2e0ff	86	35
+90	4c60af84-3454-476d-830a-96f93e2c40c7	87	1
+91	d071f6a4-fded-4ffc-a199-0d0ae27a8cd4	88	24
+92	34a20ff7-7154-456f-8b60-fec86c0da8ab	89	33
+93	cf4089b3-35b2-4f2f-92d0-95bbf8cec1b7	90	37
+94	82351b54-6516-45db-814e-f2d33985c0e7	91	1
+95	f34be39e-cec0-4858-9d0b-572577e0f8c8	92	6
+96	d1e0e75d-64d2-4e7f-9082-7be52c695b1a	93	26
+97	dea42628-5f8d-48b4-9d67-de8cfb1b923a	94	1
+98	dd38ecf2-33a1-45d2-bf14-41e9a73590ef	95	8
+99	86b16246-c477-43f4-9638-b9bb6896f4b9	7	\N
+100	64e93f77-dfb0-44e2-ad53-373af4e0b259	1	\N
+101	120f7f78-4159-4383-a06b-1be4b9fa6760	2	\N
+102	171b9f29-140d-41e8-809c-18d68bf67789	3	\N
+103	1c484e02-9adc-4924-9381-f356b3c621f8	4	\N
+104	9f700ffb-9b68-490a-b415-e4d522566d66	5	\N
+105	7a64d6f8-48d3-4ad3-b2b8-18b80b45a530	6	\N
+106	ccbd84d9-ab15-4431-b39f-724aebfb2ac1	8	2
+107	aa8d5be6-0f13-4002-86dd-48e84ac73afa	9	5
+108	f6bf0731-6c53-45a2-ae14-ee7f8e25afac	10	3
+109	5e34d7b6-068b-4a17-b99e-216fbd66305a	11	8
+110	717b43dd-5199-4791-8eae-1f24c9ebcc32	12	4
+111	9a92e457-cc74-4705-a457-97935fd39c97	13	5
+112	e643bf97-d747-441e-9659-a54d76c5b396	14	9
+113	fbe43d7a-3728-4b1a-bd60-52c2acf83e70	15	8
+114	84e6524d-7b22-47f8-bfa2-77c7aab59be4	16	5
+115	b203d7cf-eaaa-4741-a8f3-9e3c7005eaf9	17	8
+116	ca9d9918-cf47-4ea5-b70a-3a28a451e9e1	18	8
+117	796ef86c-d749-467f-a72d-cfaf05255f17	19	13
+118	92715115-71fa-4b70-a103-224f5d58b407	20	12
+119	b627541a-b5d5-4ea6-9753-0eb59718782a	21	14
+120	49adade2-6af3-42d6-9d3c-9da5cf3e35ac	22	15
+121	40b24b6f-eda6-41ad-b5d4-e5695a94376a	23	8
+122	5079d796-1689-4e37-a65e-acc13bfdb4b3	24	12
+123	57711378-b549-4874-abf8-d798437cb2e5	25	7
+124	835e8373-8bff-4468-bd2f-3243398499d5	26	15
+125	9f6cf914-1c2f-4667-a222-c949848a12d9	27	11
+126	0a340792-cee1-42b0-bd08-2b0f5be9b0dc	28	2
+127	75a71631-0df8-40b7-9c31-2ab88f25b69c	96	\N
+128	35a0a5c1-29a5-4c10-8fd7-ff3d9ef9a655	29	1
+129	5d4ddd78-2cf5-46dc-b457-97b8e906b1ee	30	8
+130	fcb3fe80-68e3-4a30-ad2b-94edc19a56a8	31	6
+131	f3f9440f-9f58-48c4-a1b4-36c08405b2e7	32	2
+132	38026dce-0eda-4dd5-b878-12f90f4ef12e	33	15
+133	8d166ba1-ae3e-4709-a14a-88e613b82179	34	23
+134	5052480b-9caf-477d-b1d9-aeef33d2a5b9	35	6
+135	acd71685-b9f9-411a-b49b-1ca02e24e3c0	36	2
+136	c4937eab-abe2-47fd-903e-3aac9c1e9a21	37	15
+137	fcc3f51c-d5d0-4892-bbd5-b6ff3a11ed0c	38	11
+138	78741fb5-330e-4f68-8816-9bfb7e77801b	39	7
+139	060fbe2a-aca2-41de-8f22-2e45f969de55	40	7
+140	916b7cd0-3bcb-40ba-b04f-82605985a741	41	26
+141	da1fa561-e498-4b12-a3df-61565b81c740	42	9
+142	7759e7d3-98b1-4257-8e53-909c24c633f3	43	1
+143	b8c45de8-b5cb-4ba2-baba-a97587517242	44	27
+144	9ff47924-aa5b-4dd6-9e79-a7e6a80d905a	45	26
+145	0f3a2c73-b631-43cc-b30b-1b5034e9d607	46	24
+146	e8ad6d32-36cd-481f-99ca-c50346dce3a8	47	1
+147	f674f810-9410-4386-9d99-ad8f7cd495ea	48	14
+148	e93a7e46-c738-430e-b3e8-cf1342369c58	97	\N
+149	59639823-a0fb-4082-a27a-511bf1b71814	98	\N
+150	d8249d81-a4f6-4804-9cb7-2515edb66954	99	\N
+151	9c0f3517-5636-4b23-b980-3a69bddd4bf2	49	24
+152	8a06aeac-b60a-48c2-8ec2-064c55da6307	50	11
+153	c990042d-4f61-424c-8870-cb147ea59d34	51	11
+154	ea459da4-9d86-4812-b0c9-6938f69d52ef	52	7
+155	2ca208bd-26ef-484e-a3bb-cb545da7ae83	53	26
+156	b1da00aa-78c3-485f-a8a3-4733a04a8e32	54	9
+157	fe516cc7-0451-4687-a81e-f3c5c42413b1	55	5
+158	7597a69a-17a8-41ac-aa21-3344e43ddc72	56	7
+159	15453bb6-cacf-477f-a874-51600a9ce1dd	57	26
+160	01e16559-d4fc-41e4-8703-d86b1f1db776	58	9
+161	00d2b050-6d09-4bcc-9d38-16bb283e3b0f	59	5
+162	c2a0eba9-338e-4a34-b626-8293e4d6e810	60	28
+163	749cf6dd-3671-4acf-86a9-4ed2060b0092	61	8
+164	5c1acc02-fdb0-4f87-8136-364dc014ab6b	62	8
+165	4d0b1633-6307-4685-9061-118ba0b2d417	63	29
+166	92cd92f3-9cb1-4dc7-a06a-b68b789a2920	64	26
+167	b950da3c-aa93-4ca7-8478-d87c65958962	65	31
+168	95d895af-47fd-48c8-bb84-b1a2e9025986	66	13
+169	1eddba10-0ad4-4540-b30b-3fce2df738ed	67	5
+170	4b67f668-9f36-46bc-bea0-e18d05edc0e9	68	26
+171	8fe8500e-98f5-4ea7-8719-de35a1b3e66d	69	31
+172	e2b2c808-2eb1-4e97-86f4-0695fcb923fe	70	1
+173	e635cceb-1efd-4b29-9660-832119357333	71	28
+174	48d1d6a1-ea89-4684-971c-4045e25219cf	72	11
+175	6a48b44f-0fd5-4cb9-abe4-249850a85fe6	73	8
+176	b37795cc-07f0-4289-99ae-526fc59afa39	74	9
+177	656b01df-7228-4b92-80f7-44a5b42a2e9c	75	29
+178	12092c0b-7350-44d2-a20e-866af7adc23c	76	32
+179	d3820dc2-beda-4614-8b49-8e457d1a43c9	77	30
+180	2d4ad96f-f972-428d-99c9-d93e0c2d1946	78	7
+181	cb8f8b1c-7dd5-4dcf-8deb-877ee5be5e2b	79	1
+182	b76279ef-a9d5-4b2f-b496-9055501980d9	80	24
+183	f5dcfe8e-3f8c-4267-8c6f-3f2ef80f5694	81	30
+184	418c3b5c-4474-4515-9000-6df19dc4c9f2	82	1
+185	b5c77bc5-ad92-4664-a18b-55b9fd9b16fc	83	8
+186	6b5d32ab-2fab-46d4-ba20-adfee7238d5b	84	8
+187	f3f81e00-5e40-4a99-b2bd-b3e65947917b	85	34
+188	48fbb50d-ea75-46e5-8c97-81622516d3e2	86	37
+189	26ee2b15-6133-428e-a089-762a6d07dbbc	87	36
+190	a7861d8d-5b5e-449a-ac55-780ecb994f05	88	6
+191	45e56744-7582-436a-9f07-e5a3e5776c57	89	26
+192	b0476968-debe-49c0-a52c-1b6fe652091d	90	8
+193	19add726-9693-444f-8ae5-f738b213bd3b	91	11
+194	e049228a-f325-4d30-82df-12eee26d068a	92	28
+195	b7d011c9-bcdd-46e6-a590-0c8ef23710f1	93	8
+196	f22c67af-058a-4227-93b3-a9ea17437633	94	28
+197	ffa8ace5-068d-4b18-9305-31efdf52aab2	95	28
+198	1c4b260c-1f0c-4fb2-b9ec-62237f2ae270	7	\N
+\.
+
+
+--
 -- Data for Name: brackets; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.brackets (id, bracket_uuid, round_id, bracket_date, first_bear, second_bear) FROM stdin;
-1	6f7d9424-a92a-45ac-9f9b-4035eff5efca	4	2022-10-05	\N	\N
-2	9c6644e3-a6e4-4607-a1a5-94c358a9ea2e	4	2022-10-05	\N	\N
-3	555876af-35c4-4dbf-9e62-7d7997bad467	4	2022-10-06	\N	\N
-4	3870a3ff-d97d-4d36-bef9-ced826dc1cf9	4	2022-10-06	\N	\N
-5	9ebb0d1e-2bcb-4f63-9a87-f0803208adfe	5	2022-10-07	\N	\N
-6	8fb08df9-2542-4c46-a71c-8d2446d2165c	5	2022-10-08	\N	\N
-7	cb914d76-8d1a-4cd0-ad5f-97f97a62d168	6	2022-10-11	\N	\N
-8	89764aa8-2f86-43ef-9011-a3e58738e7bf	7	2021-09-29	7	2
-9	bd57034c-f9d0-41ab-81e8-096a4a102902	7	2021-09-29	10	5
-10	ec18d280-3b0f-4e62-adc1-c49376b83b71	7	2021-09-30	12	3
-11	86b0ddd1-8eb2-451b-9106-1df18a454aaf	7	2021-09-30	6	8
-12	46ec071f-5623-443e-a0fe-aa1a949da3ed	8	2021-10-01	2	4
-13	f2b898d5-925e-4d82-b374-20667900a559	8	2021-10-01	1	5
-14	ffeaedf3-e685-4844-9e30-569478903d57	8	2021-10-02	12	9
-15	ddbca82e-03be-4444-abb0-1341b821947d	8	2021-10-02	11	8
-16	14bc36e3-eb68-4175-a001-fc5b6a5075bc	9	2021-10-03	4	5
-17	e3867a90-0f2a-480a-b387-fed55799e0b9	9	2021-10-04	12	8
-18	54ce1357-d999-4e81-a7a0-a8e2ec852f7e	10	2021-10-05	5	8
-19	6a07c7ca-181c-473f-8de3-339c14f53118	11	2020-09-30	5	13
-20	56c4e609-2573-4b38-b3c2-847bee681707	11	2020-09-30	6	12
-21	aab692c7-88a9-4b40-b73c-59333d4d0b88	11	2020-10-01	1	14
-22	eb67a64e-ff3c-4648-b274-18da70f41465	11	2020-10-01	16	15
-23	5f88c1d4-e64d-45f9-a70a-dd723a0d639c	12	2020-10-02	5	8
-24	5b97eccd-8974-4d16-9653-a81634bd16e0	12	2020-10-02	11	12
-25	0f040b41-79a2-45e8-a570-53ac290a0fe8	12	2020-10-03	1	7
-26	643a507a-9b74-4aad-ac92-c98eb7e6672d	12	2020-10-03	2	15
-27	64fa8009-5b5f-45fb-9642-046c71974073	13	2020-10-04	5	11
-28	c32d6bad-6412-4d46-bd87-75e186ba47e9	13	2020-10-05	1	2
-29	4bae3f84-8d65-485c-9b57-2e0600de90ce	14	2020-10-06	11	1
-30	986be819-df37-415c-9f23-0c58834eb610	15	2019-10-02	23	8
-31	e762d388-b3c0-4021-a699-adb4bc1b0082	15	2019-10-02	24	6
-32	59f43674-d7c6-4e78-b4a0-436d05361232	15	2019-10-03	5	2
-33	65bff494-79b0-499f-b7b3-cf2354851309	15	2019-10-03	25	15
-34	9e6e06fb-2be9-4799-a5b2-4b04dcd90efd	16	2019-10-04	1	23
-35	0dbdde1f-e571-42d6-b37e-b1088af733f0	16	2019-10-04	11	6
-36	8ce90702-d54f-4600-aa9b-a520f1e1ce1f	16	2019-10-05	9	2
-37	f263c9eb-4c2d-4a16-833b-6a4e429835a9	16	2019-10-05	7	15
-38	617f3d82-c229-49e2-87e6-8326bb8049bb	17	2019-10-06	23	11
-39	becf9ed2-db2f-4cc3-9c46-bf5a962a761d	17	2019-10-07	2	7
-40	98ebeb4f-a067-4049-9a1b-7dc30078f2f7	18	2019-10-08	23	7
-41	c7d5f50b-9695-4f8a-966a-335b31da1bd7	19	2018-10-03	5	26
-42	f307b17f-e5c2-43e4-aa2a-1749cd344031	19	2018-10-03	24	9
-43	b416576d-7b03-4783-b22b-9068d4bac401	19	2018-10-04	12	1
-44	c53d4ed9-05e2-4156-9a24-05b02a19226e	19	2018-10-04	14	27
-45	f44de3b5-1188-4ca2-8875-5007f924fd84	20	2018-10-05	8	26
-46	3b862758-f0ef-4989-97e8-9b4fe125b533	20	2018-10-05	7	24
-47	7eb1e5c3-c0d8-46ed-82fa-6338bb7f768c	20	2018-10-06	13	1
-48	1a56fffc-5e91-49bf-b081-cbb0fc88b467	20	2018-10-06	11	14
-49	d1dfabdd-cfa2-4d58-a89a-a9e4fce51172	21	2018-10-07	26	24
-50	d9ce2479-dd0d-461c-9a35-d808579ec0d3	21	2018-10-08	1	11
-51	1d856c5f-4278-4a44-b46a-72d5e3ba30e9	22	2018-10-09	26	11
-52	84382c84-c49e-4f8b-80cb-4ea706f8e656	23	2017-10-04	24	7
-53	006af2aa-91c7-4343-85c7-9d4a9ce4e573	23	2017-10-04	2	26
-54	2b896294-2590-4307-99f9-55982aeff4ec	23	2017-10-05	14	9
-55	376bcca1-2f9f-435d-9aec-30aedc619f62	23	2017-10-05	13	5
-56	22198071-4c62-4080-8ded-db5633d3ef5e	24	2017-10-06	11	7
-57	db5d06cc-85c8-4892-b9bd-106de3cf4a46	24	2017-10-06	28	26
-58	2a8f65d9-9ddd-4fbd-94a9-a49c87b32cd6	24	2017-10-07	1	9
-59	85e2b04b-f140-467e-a1c1-1ff0b5f0b6a1	24	2017-10-07	8	5
-60	75ff3a98-1fd3-4a90-9f05-28b8671c5144	25	2017-10-08	11	28
-61	7f703699-4d58-42ce-9242-01396994142b	25	2017-10-08	1	8
-62	4d7ec9d2-c1e3-4041-9d6e-c2466383da4f	26	2017-10-09	11	8
-63	e74d6cfd-45e8-493c-9950-738cd21939ea	27	2016-10-12	5	29
-64	7a9672cb-f9ed-47ce-94de-1650c4d46b6e	27	2016-10-12	6	26
-65	442094ae-e5f8-4d49-bfd6-6ec547021587	27	2016-10-13	30	31
-66	f902c0c2-b906-48a0-b626-b0228d39e5d3	27	2016-10-13	1	13
-67	ab0346d0-4475-4cb3-a5ae-9a21de40c733	28	2016-10-14	8	5
-68	13a75d14-d22f-4e9d-ac09-e2f286740ed9	28	2016-10-14	28	26
-69	e0c0aea1-d859-480e-8710-cf3581875642	28	2016-10-15	7	31
-70	d8b92ff0-1eae-40d3-80a3-f124a6ab50e5	28	2016-10-15	11	1
-71	87bb67a9-992b-4ff3-9648-88a2f5f12b5c	29	2016-10-16	8	28
-72	f6340ae6-55d1-427e-bf14-4e84aaecf9ad	29	2016-10-16	7	11
-73	75f98b6d-bccf-4cb3-b6d2-2343ba684f8f	30	2016-10-17	7	8
-74	f4e9e241-906e-465d-b19c-cb6a504f7f69	31	2015-10-07	7	9
-75	cc911fd7-c002-4775-a03a-ac4de66dfa0d	31	2015-10-07	1	29
-76	1b40d484-da8d-4a1b-8dc4-2b514cedecf8	31	2015-10-08	24	32
-77	8adeaccc-5d8d-4410-9573-27547be19c01	31	2015-10-08	2	30
-78	6b73e6c0-61e7-4037-ad06-3252599f4e3b	32	2015-10-09	26	7
-79	e30030a3-32bb-48ea-a8d3-131bf4c59e21	32	2015-10-09	11	1
-80	6dd17fdd-daf6-48c2-91dc-b8f1b1175a29	32	2015-10-10	28	24
-81	08e4459a-8306-40d4-acd4-aad97d502ab8	32	2015-10-10	8	30
-82	7ba638b8-9dc1-4184-b784-735b55d68289	33	2015-10-11	26	1
-83	f72259c1-5e33-485b-bc20-520ee5ddca21	33	2015-10-11	28	8
-84	0e2745b5-6617-4789-bed5-fe58884a8e5f	34	2015-10-13	26	8
-85	a872f047-5957-4412-aa6d-9d5c6e71b11b	35	2014-09-30	33	34
-86	bfe5316d-f42e-4e96-992d-722ba398c778	35	2014-09-30	35	37
-87	d4c969c5-f613-45c6-858d-d3872f56712c	35	2014-09-30	1	36
-88	6d17ea83-9d6c-49db-8c66-cd2ae2645caf	35	2014-09-30	24	6
-89	d46e1664-3352-45bd-a6ac-08ebd420e8b7	36	2014-09-30	33	26
-90	f64761d9-89e0-488f-b422-ebbef3841901	36	2014-09-30	37	8
-91	54775373-fcb8-4c49-9692-ca89fd6156f5	36	2014-09-30	1	11
-92	7562fef6-c835-4b97-b5a4-34b16d83aad3	36	2014-09-30	6	28
-93	4ffa0f5a-5bea-4b32-af7a-3fa2c9ec6fd4	37	2014-09-30	26	8
-94	310072dc-f92a-44cc-a824-3b1275ec1c80	37	2014-09-30	1	28
-95	f35fafeb-9230-4610-866e-dfe336f9b9b6	38	2014-09-30	8	28
+COPY public.brackets (id, bracket_uuid, round_id, bracket_date) FROM stdin;
+1	6f7d9424-a92a-45ac-9f9b-4035eff5efca	4	2022-10-05
+2	9c6644e3-a6e4-4607-a1a5-94c358a9ea2e	4	2022-10-05
+3	555876af-35c4-4dbf-9e62-7d7997bad467	4	2022-10-06
+4	3870a3ff-d97d-4d36-bef9-ced826dc1cf9	4	2022-10-06
+5	9ebb0d1e-2bcb-4f63-9a87-f0803208adfe	5	2022-10-07
+6	8fb08df9-2542-4c46-a71c-8d2446d2165c	5	2022-10-08
+8	89764aa8-2f86-43ef-9011-a3e58738e7bf	7	2021-09-29
+9	bd57034c-f9d0-41ab-81e8-096a4a102902	7	2021-09-29
+10	ec18d280-3b0f-4e62-adc1-c49376b83b71	7	2021-09-30
+11	86b0ddd1-8eb2-451b-9106-1df18a454aaf	7	2021-09-30
+12	46ec071f-5623-443e-a0fe-aa1a949da3ed	8	2021-10-01
+13	f2b898d5-925e-4d82-b374-20667900a559	8	2021-10-01
+14	ffeaedf3-e685-4844-9e30-569478903d57	8	2021-10-02
+15	ddbca82e-03be-4444-abb0-1341b821947d	8	2021-10-02
+16	14bc36e3-eb68-4175-a001-fc5b6a5075bc	9	2021-10-03
+17	e3867a90-0f2a-480a-b387-fed55799e0b9	9	2021-10-04
+18	54ce1357-d999-4e81-a7a0-a8e2ec852f7e	10	2021-10-05
+19	6a07c7ca-181c-473f-8de3-339c14f53118	11	2020-09-30
+20	56c4e609-2573-4b38-b3c2-847bee681707	11	2020-09-30
+21	aab692c7-88a9-4b40-b73c-59333d4d0b88	11	2020-10-01
+22	eb67a64e-ff3c-4648-b274-18da70f41465	11	2020-10-01
+23	5f88c1d4-e64d-45f9-a70a-dd723a0d639c	12	2020-10-02
+24	5b97eccd-8974-4d16-9653-a81634bd16e0	12	2020-10-02
+25	0f040b41-79a2-45e8-a570-53ac290a0fe8	12	2020-10-03
+26	643a507a-9b74-4aad-ac92-c98eb7e6672d	12	2020-10-03
+27	64fa8009-5b5f-45fb-9642-046c71974073	13	2020-10-04
+28	c32d6bad-6412-4d46-bd87-75e186ba47e9	13	2020-10-05
+96	186679de-ab64-42d1-87c9-04e58be96740	5	2022-10-07
+29	4bae3f84-8d65-485c-9b57-2e0600de90ce	14	2020-10-06
+30	986be819-df37-415c-9f23-0c58834eb610	15	2019-10-02
+31	e762d388-b3c0-4021-a699-adb4bc1b0082	15	2019-10-02
+32	59f43674-d7c6-4e78-b4a0-436d05361232	15	2019-10-03
+33	65bff494-79b0-499f-b7b3-cf2354851309	15	2019-10-03
+34	9e6e06fb-2be9-4799-a5b2-4b04dcd90efd	16	2019-10-04
+35	0dbdde1f-e571-42d6-b37e-b1088af733f0	16	2019-10-04
+36	8ce90702-d54f-4600-aa9b-a520f1e1ce1f	16	2019-10-05
+37	f263c9eb-4c2d-4a16-833b-6a4e429835a9	16	2019-10-05
+38	617f3d82-c229-49e2-87e6-8326bb8049bb	17	2019-10-06
+39	becf9ed2-db2f-4cc3-9c46-bf5a962a761d	17	2019-10-07
+40	98ebeb4f-a067-4049-9a1b-7dc30078f2f7	18	2019-10-08
+41	c7d5f50b-9695-4f8a-966a-335b31da1bd7	19	2018-10-03
+42	f307b17f-e5c2-43e4-aa2a-1749cd344031	19	2018-10-03
+43	b416576d-7b03-4783-b22b-9068d4bac401	19	2018-10-04
+44	c53d4ed9-05e2-4156-9a24-05b02a19226e	19	2018-10-04
+45	f44de3b5-1188-4ca2-8875-5007f924fd84	20	2018-10-05
+46	3b862758-f0ef-4989-97e8-9b4fe125b533	20	2018-10-05
+47	7eb1e5c3-c0d8-46ed-82fa-6338bb7f768c	20	2018-10-06
+48	1a56fffc-5e91-49bf-b081-cbb0fc88b467	20	2018-10-06
+97	a161249c-9a71-4e4e-b1aa-a63dcb9f74c3	5	2022-10-08
+98	be3a6d0e-3db1-4e84-9562-ba7ced7ce1c8	6	2022-10-09
+99	2e1b29e2-1b54-4a91-a010-e1987e061a5d	6	2022-10-10
+49	d1dfabdd-cfa2-4d58-a89a-a9e4fce51172	21	2018-10-07
+50	d9ce2479-dd0d-461c-9a35-d808579ec0d3	21	2018-10-08
+51	1d856c5f-4278-4a44-b46a-72d5e3ba30e9	22	2018-10-09
+52	84382c84-c49e-4f8b-80cb-4ea706f8e656	23	2017-10-04
+53	006af2aa-91c7-4343-85c7-9d4a9ce4e573	23	2017-10-04
+54	2b896294-2590-4307-99f9-55982aeff4ec	23	2017-10-05
+55	376bcca1-2f9f-435d-9aec-30aedc619f62	23	2017-10-05
+56	22198071-4c62-4080-8ded-db5633d3ef5e	24	2017-10-06
+57	db5d06cc-85c8-4892-b9bd-106de3cf4a46	24	2017-10-06
+58	2a8f65d9-9ddd-4fbd-94a9-a49c87b32cd6	24	2017-10-07
+59	85e2b04b-f140-467e-a1c1-1ff0b5f0b6a1	24	2017-10-07
+60	75ff3a98-1fd3-4a90-9f05-28b8671c5144	25	2017-10-08
+61	7f703699-4d58-42ce-9242-01396994142b	25	2017-10-08
+62	4d7ec9d2-c1e3-4041-9d6e-c2466383da4f	26	2017-10-09
+63	e74d6cfd-45e8-493c-9950-738cd21939ea	27	2016-10-12
+64	7a9672cb-f9ed-47ce-94de-1650c4d46b6e	27	2016-10-12
+65	442094ae-e5f8-4d49-bfd6-6ec547021587	27	2016-10-13
+66	f902c0c2-b906-48a0-b626-b0228d39e5d3	27	2016-10-13
+67	ab0346d0-4475-4cb3-a5ae-9a21de40c733	28	2016-10-14
+68	13a75d14-d22f-4e9d-ac09-e2f286740ed9	28	2016-10-14
+69	e0c0aea1-d859-480e-8710-cf3581875642	28	2016-10-15
+70	d8b92ff0-1eae-40d3-80a3-f124a6ab50e5	28	2016-10-15
+71	87bb67a9-992b-4ff3-9648-88a2f5f12b5c	29	2016-10-16
+72	f6340ae6-55d1-427e-bf14-4e84aaecf9ad	29	2016-10-16
+73	75f98b6d-bccf-4cb3-b6d2-2343ba684f8f	30	2016-10-17
+74	f4e9e241-906e-465d-b19c-cb6a504f7f69	31	2015-10-07
+75	cc911fd7-c002-4775-a03a-ac4de66dfa0d	31	2015-10-07
+76	1b40d484-da8d-4a1b-8dc4-2b514cedecf8	31	2015-10-08
+77	8adeaccc-5d8d-4410-9573-27547be19c01	31	2015-10-08
+78	6b73e6c0-61e7-4037-ad06-3252599f4e3b	32	2015-10-09
+79	e30030a3-32bb-48ea-a8d3-131bf4c59e21	32	2015-10-09
+80	6dd17fdd-daf6-48c2-91dc-b8f1b1175a29	32	2015-10-10
+81	08e4459a-8306-40d4-acd4-aad97d502ab8	32	2015-10-10
+82	7ba638b8-9dc1-4184-b784-735b55d68289	33	2015-10-11
+83	f72259c1-5e33-485b-bc20-520ee5ddca21	33	2015-10-11
+84	0e2745b5-6617-4789-bed5-fe58884a8e5f	34	2015-10-13
+85	a872f047-5957-4412-aa6d-9d5c6e71b11b	35	2014-09-30
+86	bfe5316d-f42e-4e96-992d-722ba398c778	35	2014-09-30
+87	d4c969c5-f613-45c6-858d-d3872f56712c	35	2014-09-30
+88	6d17ea83-9d6c-49db-8c66-cd2ae2645caf	35	2014-09-30
+89	d46e1664-3352-45bd-a6ac-08ebd420e8b7	36	2014-09-30
+90	f64761d9-89e0-488f-b422-ebbef3841901	36	2014-09-30
+91	54775373-fcb8-4c49-9692-ca89fd6156f5	36	2014-09-30
+92	7562fef6-c835-4b97-b5a4-34b16d83aad3	36	2014-09-30
+93	4ffa0f5a-5bea-4b32-af7a-3fa2c9ec6fd4	37	2014-09-30
+94	310072dc-f92a-44cc-a824-3b1275ec1c80	37	2014-09-30
+95	f35fafeb-9230-4610-866e-dfe336f9b9b6	38	2014-09-30
+7	cb914d76-8d1a-4cd0-ad5f-97f97a62d168	39	2022-10-11
 \.
 
 
@@ -764,94 +1015,94 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.results (id, bracket_id, winner, winner_votes, runner_up_votes, runner_up) FROM stdin;
-1	8	2	52145	25420	\N
-2	9	5	64451	11820	\N
-3	10	12	68092	17706	\N
-4	11	8	71227	14026	\N
-5	12	4	40968	32251	\N
-6	13	5	60621	11038	\N
-7	14	12	31728	22447	\N
-8	15	8	34000	22532	\N
-9	16	5	31399	22496	\N
-10	17	8	44581	18451	\N
-11	18	8	\N	\N	\N
-12	19	5	\N	\N	\N
-13	20	12	\N	\N	\N
-14	21	1	\N	\N	\N
-15	22	15	\N	\N	\N
-16	23	5	\N	\N	\N
-17	24	11	\N	\N	\N
-18	25	1	\N	\N	\N
-19	26	2	\N	\N	\N
-20	27	11	\N	\N	\N
-21	28	1	\N	\N	\N
-22	29	11	\N	\N	\N
-23	30	23	\N	\N	\N
-24	31	6	\N	\N	\N
-25	32	2	\N	\N	\N
-26	33	15	\N	\N	\N
-27	34	23	\N	\N	\N
-28	35	11	\N	\N	\N
-29	36	2	\N	\N	\N
-30	37	7	\N	\N	\N
-31	38	23	\N	\N	\N
-32	39	7	\N	\N	\N
-33	40	7	\N	\N	\N
-34	41	26	\N	\N	\N
-35	42	24	\N	\N	\N
-36	43	1	\N	\N	\N
-37	44	14	\N	\N	\N
-38	45	26	\N	\N	\N
-39	46	24	\N	\N	\N
-40	47	1	\N	\N	\N
-41	48	11	\N	\N	\N
-42	49	26	\N	\N	\N
-43	50	11	\N	\N	\N
-44	51	26	\N	\N	\N
-45	52	7	\N	\N	\N
-46	53	26	\N	\N	\N
-47	54	9	\N	\N	\N
-48	55	5	\N	\N	\N
-49	56	11	\N	\N	\N
-50	57	28	\N	\N	\N
-51	58	1	\N	\N	\N
-52	59	8	\N	\N	\N
-53	60	11	\N	\N	\N
-54	61	8	\N	\N	\N
-55	62	8	\N	\N	\N
-56	63	5	\N	\N	\N
-57	64	26	\N	\N	\N
-58	65	31	\N	\N	\N
-59	66	1	\N	\N	\N
-60	67	8	\N	\N	\N
-61	68	28	\N	\N	\N
-62	69	7	\N	\N	\N
-63	70	11	\N	\N	\N
-64	71	8	\N	\N	\N
-65	72	7	\N	\N	\N
-66	73	8	\N	\N	\N
-67	74	7	\N	\N	\N
-68	75	1	\N	\N	\N
-69	76	24	\N	\N	\N
-70	77	30	\N	\N	\N
-71	78	26	\N	\N	\N
-72	79	1	\N	\N	\N
-73	80	28	\N	\N	\N
-74	81	8	\N	\N	\N
-75	82	26	\N	\N	\N
-76	83	8	\N	\N	\N
-77	84	26	\N	\N	\N
-78	85	33	\N	\N	\N
-79	86	37	\N	\N	\N
-80	87	1	\N	\N	\N
-81	88	6	\N	\N	\N
-82	89	26	\N	\N	\N
-83	90	8	\N	\N	\N
-84	91	1	\N	\N	\N
-85	92	28	\N	\N	\N
-86	93	8	\N	\N	\N
-87	94	28	\N	\N	\N
-88	95	8	\N	\N	\N
+1	8	2	52145	25420	7
+2	9	5	64451	11820	10
+3	10	12	68092	17706	3
+4	11	8	71227	14026	6
+5	12	4	40968	32251	2
+6	13	5	60621	11038	1
+7	14	12	31728	22447	9
+8	15	8	34000	22532	11
+9	16	5	31399	22496	4
+10	17	8	44581	18451	12
+11	18	8	\N	\N	5
+12	19	5	\N	\N	13
+13	20	12	\N	\N	6
+14	21	1	\N	\N	14
+15	22	15	\N	\N	16
+16	23	5	\N	\N	8
+17	24	11	\N	\N	12
+18	25	1	\N	\N	7
+19	26	2	\N	\N	15
+20	27	11	\N	\N	5
+21	28	1	\N	\N	2
+22	29	11	\N	\N	1
+23	30	23	\N	\N	8
+24	31	6	\N	\N	24
+25	32	2	\N	\N	5
+26	33	15	\N	\N	25
+27	34	23	\N	\N	1
+28	35	11	\N	\N	6
+29	36	2	\N	\N	9
+30	37	7	\N	\N	15
+31	38	23	\N	\N	11
+32	39	7	\N	\N	2
+33	40	7	\N	\N	23
+34	41	26	\N	\N	5
+35	42	24	\N	\N	9
+36	43	1	\N	\N	12
+37	44	14	\N	\N	27
+38	45	26	\N	\N	8
+39	46	24	\N	\N	7
+40	47	1	\N	\N	13
+41	48	11	\N	\N	14
+42	49	26	\N	\N	24
+43	50	11	\N	\N	1
+44	51	26	\N	\N	11
+45	52	7	\N	\N	24
+46	53	26	\N	\N	2
+47	54	9	\N	\N	14
+48	55	5	\N	\N	13
+49	56	11	\N	\N	7
+50	57	28	\N	\N	26
+51	58	1	\N	\N	9
+52	59	8	\N	\N	5
+53	60	11	\N	\N	28
+54	61	8	\N	\N	1
+55	62	8	\N	\N	11
+56	63	5	\N	\N	29
+57	64	26	\N	\N	6
+58	65	31	\N	\N	30
+59	66	1	\N	\N	13
+60	67	8	\N	\N	5
+61	68	28	\N	\N	26
+62	69	7	\N	\N	31
+63	70	11	\N	\N	1
+64	71	8	\N	\N	28
+65	72	7	\N	\N	11
+66	73	8	\N	\N	7
+67	74	7	\N	\N	9
+68	75	1	\N	\N	29
+69	76	24	\N	\N	32
+70	77	30	\N	\N	2
+71	78	26	\N	\N	7
+72	79	1	\N	\N	11
+73	80	28	\N	\N	24
+74	81	8	\N	\N	30
+75	82	26	\N	\N	1
+76	83	8	\N	\N	28
+77	84	26	\N	\N	8
+78	85	33	\N	\N	34
+79	86	37	\N	\N	35
+80	87	1	\N	\N	36
+81	88	6	\N	\N	24
+82	89	26	\N	\N	33
+83	90	8	\N	\N	37
+84	91	1	\N	\N	11
+85	92	28	\N	\N	6
+86	93	8	\N	\N	26
+87	94	28	\N	\N	1
+88	95	8	\N	\N	28
 \.
 
 
@@ -862,7 +1113,6 @@ COPY public.results (id, bracket_id, winner, winner_votes, runner_up_votes, runn
 COPY public.rounds (id, round_uuid, competition_year, round_number, final_round) FROM stdin;
 4	7908761d-6067-4221-9e7d-54f0186788ae	2022	1	f
 5	27f9803b-ddc0-44ed-8221-5c06f43ecf4e	2022	2	f
-6	57d04ccb-a928-464e-88f5-56591995f765	2022	3	t
 7	5b43f16d-5642-49fa-acc8-16b1b3bd2029	2021	1	f
 8	0c807f3a-5670-4075-bbe6-42689dcd9fbf	2021	2	f
 9	ced165d1-8e8b-418e-a0ca-13845f181d04	2021	3	f
@@ -895,6 +1145,8 @@ COPY public.rounds (id, round_uuid, competition_year, round_number, final_round)
 36	132ceddc-195d-465f-92e8-fbe9d9b9b7b2	2014	2	f
 37	2b728e9b-3f49-4bbd-91de-48c85001a6a9	2014	3	f
 38	011f7fbd-9fb3-4c05-99bc-08029238ce22	2014	4	t
+6	57d04ccb-a928-464e-88f5-56591995f765	2022	3	f
+39	34338928-31c2-4fb3-8474-0a913fbc3bc2	2022	4	t
 \.
 
 
@@ -948,10 +1200,17 @@ SELECT pg_catalog.setval('public.bears_id_seq', 37, true);
 
 
 --
+-- Name: bracket_contestants_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rebeka
+--
+
+SELECT pg_catalog.setval('public.bracket_contestants_id_seq', 198, true);
+
+
+--
 -- Name: brackets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.brackets_id_seq', 95, true);
+SELECT pg_catalog.setval('public.brackets_id_seq', 100, true);
 
 
 --
@@ -986,7 +1245,7 @@ SELECT pg_catalog.setval('public.results_id_seq', 88, true);
 -- Name: rounds_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.rounds_id_seq', 38, true);
+SELECT pg_catalog.setval('public.rounds_id_seq', 39, true);
 
 
 --
@@ -1107,6 +1366,22 @@ ALTER TABLE ONLY public.bears
 
 ALTER TABLE ONLY public.bears
     ADD CONSTRAINT bears_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: bracket_contestants bracket_contestants_bracket_id_bear_id_key; Type: CONSTRAINT; Schema: public; Owner: rebeka
+--
+
+ALTER TABLE ONLY public.bracket_contestants
+    ADD CONSTRAINT bracket_contestants_bracket_id_bear_id_key UNIQUE (bracket_id, bear_id);
+
+
+--
+-- Name: bracket_contestants bracket_contestants_pkey; Type: CONSTRAINT; Schema: public; Owner: rebeka
+--
+
+ALTER TABLE ONLY public.bracket_contestants
+    ADD CONSTRAINT bracket_contestants_pkey PRIMARY KEY (id);
 
 
 --
@@ -1329,11 +1604,19 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 
 --
--- Name: brackets brackets_first_bear_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: bracket_contestants bracket_contestants_bear_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: rebeka
 --
 
-ALTER TABLE ONLY public.brackets
-    ADD CONSTRAINT brackets_first_bear_fkey FOREIGN KEY (first_bear) REFERENCES public.bears(id);
+ALTER TABLE ONLY public.bracket_contestants
+    ADD CONSTRAINT bracket_contestants_bear_id_fkey FOREIGN KEY (bear_id) REFERENCES public.bears(id);
+
+
+--
+-- Name: bracket_contestants bracket_contestants_bracket_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: rebeka
+--
+
+ALTER TABLE ONLY public.bracket_contestants
+    ADD CONSTRAINT bracket_contestants_bracket_id_fkey FOREIGN KEY (bracket_id) REFERENCES public.brackets(id);
 
 
 --
@@ -1342,14 +1625,6 @@ ALTER TABLE ONLY public.brackets
 
 ALTER TABLE ONLY public.brackets
     ADD CONSTRAINT brackets_round_id_fkey FOREIGN KEY (round_id) REFERENCES public.rounds(id);
-
-
---
--- Name: brackets brackets_second_bear_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.brackets
-    ADD CONSTRAINT brackets_second_bear_fkey FOREIGN KEY (second_bear) REFERENCES public.bears(id);
 
 
 --

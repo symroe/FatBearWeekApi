@@ -13,29 +13,29 @@ class AuthGroup(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_group'
+        db_table = "auth_group"
 
 
 class AuthGroupPermissions(models.Model):
     id = models.BigAutoField(primary_key=True)
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+    permission = models.ForeignKey("AuthPermission", models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'auth_group_permissions'
-        unique_together = (('group', 'permission'),)
+        db_table = "auth_group_permissions"
+        unique_together = (("group", "permission"),)
 
 
 class AuthPermission(models.Model):
     name = models.CharField(max_length=255)
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    content_type = models.ForeignKey("DjangoContentType", models.DO_NOTHING)
     codename = models.CharField(max_length=100)
 
     class Meta:
         managed = False
-        db_table = 'auth_permission'
-        unique_together = (('content_type', 'codename'),)
+        db_table = "auth_permission"
+        unique_together = (("content_type", "codename"),)
 
 
 class AuthUser(models.Model):
@@ -52,7 +52,7 @@ class AuthUser(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user'
+        db_table = "auth_user"
 
 
 class AuthUserGroups(models.Model):
@@ -62,8 +62,8 @@ class AuthUserGroups(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user_groups'
-        unique_together = (('user', 'group'),)
+        db_table = "auth_user_groups"
+        unique_together = (("user", "group"),)
 
 
 class AuthUserUserPermissions(models.Model):
@@ -73,8 +73,8 @@ class AuthUserUserPermissions(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user_user_permissions'
-        unique_together = (('user', 'permission'),)
+        db_table = "auth_user_user_permissions"
+        unique_together = (("user", "permission"),)
 
 
 class Bear(models.Model):
@@ -90,28 +90,28 @@ class Bear(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'bears'
+        db_table = "bears"
 
 
 class BracketContestant(models.Model):
     bracket_contestant_uuid = models.UUIDField(blank=True, null=True)
-    bracket = models.ForeignKey('Bracket', models.DO_NOTHING, blank=True, null=True)
+    bracket = models.ForeignKey("Bracket", models.DO_NOTHING, blank=True, null=True)
     bear = models.ForeignKey(Bear, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'bracket_contestants'
-        unique_together = (('bracket', 'bear'),)
+        db_table = "bracket_contestants"
+        unique_together = (("bracket", "bear"),)
 
 
 class Bracket(models.Model):
     bracket_uuid = models.UUIDField(blank=True, null=True)
-    round = models.ForeignKey('Round', models.DO_NOTHING, blank=True, null=True)
+    round = models.ForeignKey("Round", models.DO_NOTHING, blank=True, null=True)
     bracket_date = models.DateField()
 
     class Meta:
         managed = False
-        db_table = 'brackets'
+        db_table = "brackets"
 
 
 class DjangoAdminLog(models.Model):
@@ -120,12 +120,14 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.SmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey(
+        "DjangoContentType", models.DO_NOTHING, blank=True, null=True
+    )
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'django_admin_log'
+        db_table = "django_admin_log"
 
 
 class DjangoContentType(models.Model):
@@ -134,8 +136,8 @@ class DjangoContentType(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'django_content_type'
-        unique_together = (('app_label', 'model'),)
+        db_table = "django_content_type"
+        unique_together = (("app_label", "model"),)
 
 
 class DjangoMigrations(models.Model):
@@ -146,7 +148,7 @@ class DjangoMigrations(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'django_migrations'
+        db_table = "django_migrations"
 
 
 class DjangoSession(models.Model):
@@ -156,19 +158,28 @@ class DjangoSession(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'django_session'
+        db_table = "django_session"
 
 
 class Result(models.Model):
     bracket = models.ForeignKey(Bracket, models.DO_NOTHING)
-    winner = models.ForeignKey(Bear, models.DO_NOTHING, db_column='winner', related_name='winner')
+    winner = models.ForeignKey(
+        Bear, models.DO_NOTHING, db_column="winner", related_name="winner"
+    )
     winner_votes = models.IntegerField(blank=True, null=True)
     runner_up_votes = models.IntegerField(blank=True, null=True)
-    runner_up = models.ForeignKey(Bear, models.DO_NOTHING, db_column='runner_up', blank=True, null=True, related_name='runner_up')
+    runner_up = models.ForeignKey(
+        Bear,
+        models.DO_NOTHING,
+        db_column="runner_up",
+        blank=True,
+        null=True,
+        related_name="runner_up",
+    )
 
     class Meta:
         managed = False
-        db_table = 'results'
+        db_table = "results"
 
 
 class Round(models.Model):
@@ -179,5 +190,5 @@ class Round(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'rounds'
-        unique_together = (('competition_year', 'round_number'),)
+        db_table = "rounds"
+        unique_together = (("competition_year", "round_number"),)
