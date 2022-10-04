@@ -7,6 +7,7 @@ class BearSerializer(serializers.ModelSerializer):
         fields = ["bear_uuid", "bear_number", "bear_name", "bear_gender", "first_identified", "bear_size",
                   "fur_description", "muzzle_description", "ear_description"]
 
+
 class BasicBearSerializer(serializers.Serializer):
     bear_uuid = serializers.UUIDField()
     bear_number = serializers.IntegerField()

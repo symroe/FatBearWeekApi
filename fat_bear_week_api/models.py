@@ -93,12 +93,21 @@ class Bear(models.Model):
         db_table = 'bears'
 
 
+class BracketContestant(models.Model):
+    bracket_contestant_uuid = models.UUIDField(blank=True, null=True)
+    bracket = models.ForeignKey('Bracket', models.DO_NOTHING, blank=True, null=True)
+    bear = models.ForeignKey(Bear, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'bracket_contestants'
+        unique_together = (('bracket', 'bear'),)
+
+
 class Bracket(models.Model):
     bracket_uuid = models.UUIDField(blank=True, null=True)
     round = models.ForeignKey('Round', models.DO_NOTHING, blank=True, null=True)
     bracket_date = models.DateField()
-    first_bear = models.ForeignKey(Bear, models.DO_NOTHING, db_column='first_bear', blank=True, null=True, related_name="first_bear")
-    second_bear = models.ForeignKey(Bear, models.DO_NOTHING, db_column='second_bear', blank=True, null=True, related_name="second_bear")
 
     class Meta:
         managed = False
@@ -152,10 +161,10 @@ class DjangoSession(models.Model):
 
 class Result(models.Model):
     bracket = models.ForeignKey(Bracket, models.DO_NOTHING)
-    winner = models.ForeignKey(Bear, models.DO_NOTHING, db_column='winner', related_name="winner")
+    winner = models.ForeignKey(Bear, models.DO_NOTHING, db_column='winner', related_name='winner')
     winner_votes = models.IntegerField(blank=True, null=True)
     runner_up_votes = models.IntegerField(blank=True, null=True)
-    runner_up = models.ForeignKey(Bear, models.DO_NOTHING, db_column='runner_up', blank=True, null=True, related_name="runner_up")
+    runner_up = models.ForeignKey(Bear, models.DO_NOTHING, db_column='runner_up', blank=True, null=True, related_name='runner_up')
 
     class Meta:
         managed = False

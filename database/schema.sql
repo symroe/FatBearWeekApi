@@ -36,3 +36,11 @@ CREATE TABLE results (
   winner_votes INTEGER,
   runner_up_votes INTEGER
 );
+
+CREATE TABLE bracket_contestants(
+	id SERIAL PRIMARY KEY,
+  	bracket_contestant_uuid uuid DEFAULT uuid_generate_v4 (),
+ 	bracket_id INTEGER NOT NULL REFERENCES brackets(id),
+  	bear_id INTEGER NOT NULL REFERENCES bears(id),
+  	UNIQUE(bracket_id, bear_id)
+);
