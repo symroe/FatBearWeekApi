@@ -1,12 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from bears.views import BearsView, ChampionsView, FinalistsView
+from bears.views import ChampionsView, FinalistsView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
-    path("api/bears", BearsView.as_view()),
-    path("api/bears/<bear_uuid>", BearsView.as_view()),
+    path("", include("api.urls")),
     path("api/champions", ChampionsView.as_view()),
     path("api/finalists", FinalistsView.as_view()),
 ]
