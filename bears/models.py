@@ -22,6 +22,7 @@ class BracketContestantQuerySet(models.QuerySet):
         # TODO: make this query actually do what it should
         return self.filter(bracket__round__final_round=True)
 
+
 class BracketContestant(models.Model):
     bracket_contestant_uuid = models.UUIDField(blank=True, null=True)
     bracket = models.ForeignKey("Bracket", models.DO_NOTHING, blank=True, null=True)
