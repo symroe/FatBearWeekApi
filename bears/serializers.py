@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Bear, BracketContestant
+from bears.models import Bear, BracketContestant
 
 
 class BearSerializer(serializers.ModelSerializer):
