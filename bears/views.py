@@ -5,7 +5,7 @@ from bears.models import Bear, Result, BracketContestant
 from bears.serializers import BearSerializer, ContestantSerializer
 
 
-class BearViewSet(viewsets.ModelViewSet):
+class BearViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Bear.objects.all()
     serializer_class = BearSerializer
 
