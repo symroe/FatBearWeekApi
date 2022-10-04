@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Bear(models.Model):
-    bear_uuid = models.UUIDField(blank=True, null=True)
-    bear_number = models.IntegerField(unique=True, blank=True, null=True)
-    bear_name = models.TextField(unique=True, blank=True, null=True)
+    bear_uuid = models.UUIDField()
+    bear_number = models.IntegerField(unique=False, blank=True, null=True)
+    bear_name = models.TextField(blank=False, null=True)
     bear_gender = models.TextField(blank=True, null=True)
     first_identified = models.IntegerField(blank=True, null=True)
     bear_size = models.TextField(blank=True, null=True)
@@ -35,7 +35,7 @@ class BracketContestant(models.Model):
 
 
 class Bracket(models.Model):
-    bracket_uuid = models.UUIDField(blank=True, null=True)
+    bracket_uuid = models.UUIDField()
     round = models.ForeignKey("Round", models.DO_NOTHING, blank=True, null=True)
     bracket_date = models.DateField()
 
