@@ -15,7 +15,6 @@ class Command(BaseCommand):
         self.import_bracket_contestant()
         self.import_results()
 
-
     def import_bears(self):
         bears_csv = self.data_path / "bears.csv"
         for line in csv.DictReader(bears_csv.open()):
